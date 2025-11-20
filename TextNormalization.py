@@ -199,5 +199,5 @@ if __name__ == "__main__":
         if not user_text:
             print("Goodbye!")
             break
-        print("Normalized form:", normalize(user_text))
+        print("Normalized:", normalize(user_text))
         print()
