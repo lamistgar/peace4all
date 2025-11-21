@@ -1,13 +1,7 @@
-# Text Normalization for Cardinal Numbers and Currency (0-1000 + currency)
-# -----------------------------------------------------------------------
-
 import re
 import unittest
 from typing import Match
 
-# -------------------------
-#  NUMBER → WORDS MAPPING
-# -------------------------
 ONES = {
     0: "zero", 1: "one", 2: "two", 3: "three", 4: "four",
     5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine"
@@ -22,9 +16,6 @@ TENS = {
     60: "sixty", 70: "seventy", 80: "eighty", 90: "ninety"
 }
 
-# -------------------------
-#  NUMBER → WORDS FUNCTION
-# -------------------------
 def number_to_words(n: int) -> str:
     """Convert an integer n (0 <= n <= 1000) to written-out English."""
     if not (0 <= n <= 1000):
@@ -50,16 +41,12 @@ def number_to_words(n: int) -> str:
 
     return "one thousand"
 
-# -------------------------
-#  CURRENCY MAPPING  (UPDATED)
-# -------------------------
 CURRENCY_SYMBOLS = {
     "$": "dolar",
     "€": "euro",
     "£": "pound"
 }
 
-# Currency regex
 CURRENCY_RE = re.compile(r"([$€£])(\d{1,4}(?:\.\d{1,2})?)")
 
 def number_to_words_currency(amount: str) -> str:
@@ -89,7 +76,6 @@ def normalize_currency(text: str) -> str:
 
         currency_word = CURRENCY_SYMBOLS.get(symbol, "")
 
-        # plural
         if float(amount) != 1:
             currency_word += "s"
 
@@ -97,9 +83,6 @@ def normalize_currency(text: str) -> str:
 
     return CURRENCY_RE.sub(_repl, text)
 
-# -------------------------
-#  SENTENCE NORMALIZER
-# -------------------------
 NUMBER_RE = re.compile(r"\b(\d{1,4})\b")
 
 def normalize(text: str) -> str:
@@ -118,9 +101,6 @@ def normalize(text: str) -> str:
 
     return NUMBER_RE.sub(_repl, text)
 
-# -------------------------
-#  UNIT TESTS
-# -------------------------
 class TestNumberToWords(unittest.TestCase):
     def test_basic_ones(self):
         self.assertEqual(number_to_words(0), "zero")
@@ -181,7 +161,6 @@ class TestNormalize(unittest.TestCase):
     def test_no_numbers(self):
         self.assertEqual(normalize("Hello world"), "Hello world")
 
-    # Currency tests
     def test_currency(self):
         self.assertEqual(normalize("I have $5 and €12.50"),
                          "I have five dolars and twelve euros fifty cents")
@@ -189,9 +168,6 @@ class TestNormalize(unittest.TestCase):
         self.assertEqual(normalize("Price: $1.01"), "Price: one dolar one cents")
         self.assertEqual(normalize("Cost: €0.99"), "Cost: ninety-nine cents")
 
-# -------------------------
-#  INTERACTIVE MODE ONLY
-# -------------------------
 if __name__ == "__main__":
     print("Smart Text Normalizer — Enter a sentence (or leave blank to exit):")
     while True:
