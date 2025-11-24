@@ -1,4 +1,4 @@
-# Text Normalization for Cardinal Numbers (0-1000) and Currency
+# Text Normalization for Cardinal Numbers (0-1000) and Currencies
 # -----------------------------------------------------------------------
 # Fix: SystemExit: 5 occurred because unittest.main() found **zero tests**.
 # Solution: explicitly build a test suite and run it using TextTestRunner.
